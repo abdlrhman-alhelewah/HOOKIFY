@@ -1,0 +1,180 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account documents stored by uid.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "Email address of the user" },
+        "displayName": { "type": "string", "description": "Display name of the user" },
+        "photoURL": { "type": "string", "description": "Avatar URL" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastLoginAt": { "type": "string", "format": "date-time" },
+        "isPro": { "type": "boolean", "description": "Whether the user is a premium Pro subscriber" }
+      },
+      "required": ["email", "isPro"]
+    },
+    "ApprovedUser": {
+      "title": "Approved User",
+      "description": "Pre-approved e-mail addresses for administration or beta access.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "beta"] }
+      },
+      "required": ["email"]
+    },
+    "AccessRequest": {
+      "title": "Access Request",
+      "description": "Beta access requested by visitors prior to access approval.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "requestedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "status"]
+    },
+    "Generation": {
+      "title": "AI Generation",
+      "description": "Stores generated viral hook frameworks, captions, scripts or templates.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "prompt": { "type": "string" },
+        "output": { "type": "string" },
+        "channel": { "type": "string" },
+        "objective": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "prompt", "output"]
+    },
+    "SavedIdea": {
+      "title": "Saved Swipe / Idea",
+      "description": "Users saved social drafts, hooks or notes for future calendars.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "frameworkName": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title"]
+    },
+    "ActivityLog": {
+      "title": "User Activity Log",
+      "description": "Audit trails of client analytics actions for usage and security monitoring.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "action": { "type": "string" },
+        "details": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "action"]
+    },
+    "BrandProfile": {
+      "title": "Brand Voice Profile",
+      "description": "Tailored niche context and branding tones for matching target audiences.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "brandName": { "type": "string" },
+        "targetAudience": { "type": "string" },
+        "selectedTone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "brandName"]
+    },
+    "Project": {
+      "title": "Project Container",
+      "description": "Workspace groupings to organize social calendars.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name"]
+    },
+    "CalendarItem": {
+      "title": "Calendar Item",
+      "description": "A scheduled piece of social content aligned in the calendar dashboard.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "channel": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string" },
+        "syncedToGoogle": { "type": "boolean" },
+        "googleEventId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "channel", "date"]
+    },
+    "SwipeItem": {
+      "title": "Custom and Periodic Trending Swipe Item",
+      "description": "Users custom or automatically trending hooks, CTAs, and frameworks.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["hook", "cta", "framework"] },
+        "category": { "type": "string" },
+        "template": { "type": "string" },
+        "example": { "type": "string" },
+        "performanceScore": { "type": "number" },
+        "freshness": { "type": "string" },
+        "isCustom": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "category", "template", "example"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile collection partitioned by primary user ID."
+    },
+    "/approved_users/{email}": {
+      "schema": "ApprovedUser",
+      "description": "Authorized whitelist mappings for validation purposes."
+    },
+    "/access_requests/{email}": {
+      "schema": "AccessRequest",
+      "description": "Initial platform sign-up request collection indexed by email."
+    },
+    "/generations/{documentId}": {
+      "schema": "Generation",
+      "description": "Global user content generated by custom LLM engines."
+    },
+    "/saved_ideas/{documentId}": {
+      "schema": "SavedIdea",
+      "description": "Custom user ideas and hooks swipe file items."
+    },
+    "/activity_logs/{documentId}": {
+      "schema": "ActivityLog",
+      "description": "Historic security logs and events recorded."
+    },
+    "/brand_profiles/{documentId}": {
+      "schema": "BrandProfile",
+      "description": "Configured user branding identities."
+    },
+    "/projects/{documentId}": {
+      "schema": "Project",
+      "description": "User-defined custom content folders."
+    },
+    "/calendar_items/{documentId}": {
+      "schema": "CalendarItem",
+      "description": "30-day schedules and custom calendar entries."
+    },
+    "/swipe_items/{documentId}": {
+      "schema": "SwipeItem",
+      "description": "Dynamic trending swipe templates, hooks, and frameworks mapped to users."
+    }
+  }
+}

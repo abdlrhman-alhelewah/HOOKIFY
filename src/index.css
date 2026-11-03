@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-slate-100: var(--color-slate-100);
+  --color-slate-200: var(--color-slate-200);
+  --color-slate-300: var(--color-slate-300);
+  --color-slate-400: var(--color-slate-400);
+  --color-slate-500: var(--color-slate-500);
+  --color-slate-800: var(--color-slate-800);
+  --color-slate-900: var(--color-slate-900);
+  --color-slate-950: var(--color-slate-950);
+
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-300: var(--color-gray-300);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-800: var(--color-gray-800);
+  --color-gray-900: var(--color-gray-900);
+  --color-gray-950: var(--color-gray-950);
+}
+
+:root {
+  /* Default Color Theme: Dark Mode values */
+  --body-bg: #060608;
+  --glow-1: #1a1033;
+  --glow-2: #0d1e3a;
+  --body-text: #f1f5f9;
+
+  /* Transparent Opacity System variables */
+  --white-02: rgba(255, 255, 255, 0.02);
+  --white-05: rgba(255, 255, 255, 0.05);
+  --white-10: rgba(255, 255, 255, 0.1);
+  --white-20: rgba(255, 255, 255, 0.2);
+  --white-30: rgba(255, 255, 255, 0.3);
+
+  --black-20: rgba(0, 0, 0, 0.2);
+  --black-40: rgba(0, 0, 0, 0.4);
+  --black-50: rgba(0, 0, 0, 0.5);
+
+  --text-white-override: #ffffff;
+
+  /* Overrides for standard Tailwind color system properties in Dark Mode context */
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-700: #374151;
+  --color-gray-800: #101524;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  --bg-0b0f19: #0b0f19;
+  --bg-060608: #060608;
+  --bg-gray-900-50: rgba(17, 24, 39, 0.5);
+  --bg-red-950-20: rgba(69, 10, 10, 0.2);
+  --text-red-400: #f87171;
+  --prose-link: #c084fc;
+}
+
+.light-theme {
+  /* Dynamic Color Theme overrides: Light Mode values */
+  --body-bg: #f8fafc;
+  --glow-1: #e0e7ff;
+  --glow-2: #dbeafe;
+  --body-text: #0f172a;
+
+  /* Redefining transparent opacity system for crisp high contrast on white background */
+  --white-02: rgba(15, 23, 42, 0.02);
+  --white-05: rgba(15, 23, 42, 0.05);
+  --white-10: rgba(15, 23, 42, 0.10);
+  --white-20: rgba(15, 23, 42, 0.18);
+  --white-30: rgba(15, 23, 42, 0.28);
+
+  --black-20: rgba(0, 0, 0, 0.05);
+  --black-40: rgba(0, 0, 0, 0.08);
+  --black-50: rgba(0, 0, 0, 0.05);
+
+  --text-white-override: #0f172a;
+
+  /* Adjusting standard Tailwind color properties to ensure light mode versions render properly */
+  --color-slate-100: #1e293b;
+  --color-slate-200: #1e293b;
+  --color-slate-300: #334155;
+  --color-slate-400: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-800: #e2e8f0;
+  --color-slate-900: #f1f5f9;
+  --color-slate-950: #ffffff;
+
+  --color-gray-100: #1e293b;
+  --color-gray-200: #1e293b;
+  --color-gray-300: #334155;
+  --color-gray-400: #475569;
+  --color-gray-600: #475569;
+  --color-gray-500: #64748b;
+  --color-gray-700: #94a3b8;
+  --color-gray-800: #cbd5e1;
+  --color-gray-900: #f1f5f9;
+  --color-gray-950: #ffffff;
+
+  --bg-0b0f19: #f1f5f9;
+  --bg-060608: #f8fafc;
+  --bg-gray-900-50: rgba(255, 255, 255, 0.5);
+  --bg-red-950-20: rgba(239, 68, 68, 0.1);
+  --text-red-400: #ef4444;
+  --prose-link: #9333ea;
+}
+
+body {
+  background-color: var(--body-bg); 
+  background-image: radial-gradient(circle at 0% 0%, var(--glow-1) 0%, transparent 40%), radial-gradient(circle at 100% 100%, var(--glow-2) 0%, transparent 40%);
+  background-attachment: fixed;
+  color: var(--body-text);
+  transition: background-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+}
+
+::selection {
+  background-color: rgba(168, 85, 247, 0.3);
+}
+
+/* Custom transparent helper mappings */
+.bg-white\/\[0\.02\] { background-color: var(--white-02); }
+.bg-white\/5 { background-color: var(--white-05); }
+.bg-white\/10 { background-color: var(--white-10); }
+.bg-white\/20 { background-color: var(--white-20); }
+
+.border-white\/5 { border-color: var(--white-02); }
+.border-white\/10 { border-color: var(--white-10); }
+.border-white\/20 { border-color: var(--white-20); }
+.border-white\/30 { border-color: var(--white-30); }
+
+.bg-black\/20 { background-color: var(--black-20); }
+.bg-black\/40 { background-color: var(--black-40); }
+.bg-black\/50 { background-color: var(--black-50); }
+
+/* Standard custom background color variables */
+.bg-\[\#0B0F19\] { background-color: var(--bg-0b0f19); }
+.bg-\[\#060608\] { background-color: var(--bg-060608); }
+.bg-gray-900\/50 { background-color: var(--bg-gray-900-50); }
+.bg-red-950\/20 { background-color: var(--bg-red-950-20); }
+.text-red-400 { color: var(--text-red-400); }
+.prose-a\:text-purple-400 { color: var(--prose-link); }
+
+/* Common Hover classes */
+.hover\:bg-white\/5:hover { background-color: var(--white-05); }
+.hover\:bg-white\/10:hover { background-color: var(--white-10); }
+.hover\:bg-white\/20:hover { background-color: var(--white-20); }
+.hover\:text-white:hover { color: var(--text-white-override); }
+
+/* Structure white text overrides depending on state */
+:not(button):not(.bg-purple-500):not(.bg-violet-600):not(.from-purple-500) > .text-white,
+.text-white:not(button):not(.text-[10px]) {
+  color: var(--text-white-override);
+}
+
+/* Prevent theme-sensitive overriding of text-white inside dark containers, dark backgrounds, buttons, and colored badges */
+.dark-container,
+.dark-container *,
+.bg-purple-500, .bg-purple-500 *,
+.bg-purple-600, .bg-purple-600 *,
+.bg-purple-700, .bg-purple-700 *,
+.bg-indigo-500, .bg-indigo-500 *,
+.bg-indigo-600, .bg-indigo-600 *,
+.bg-indigo-700, .bg-indigo-700 *,
+.bg-violet-500, .bg-violet-500 *,
+.bg-violet-600, .bg-violet-600 *,
+.bg-violet-700, .bg-violet-700 *,
+.bg-blue-500, .bg-blue-500 *,
+.bg-blue-600, .bg-blue-600 *,
+.bg-blue-700, .bg-blue-700 *,
+.bg-emerald-500, .bg-emerald-500 *,
+.bg-emerald-600, .bg-emerald-600 *,
+.bg-green-500, .bg-green-500 *,
+.bg-green-600, .bg-green-600 *,
+.bg-red-500, .bg-red-500 *,
+.bg-red-600, .bg-red-600 *,
+.dark-container .text-white,
+button .text-white,
+button * {
+  --text-white-override: #ffffff !important;
+}
+
+.markdown-body {
+  text-align: start;
+}
+
+.markdown-body[dir="rtl"], [dir="rtl"] .markdown-body, .markdown-body[dir="auto"]:dir(rtl) {
+  text-align: right;
+}
+.markdown-body[dir="rtl"] ul, [dir="rtl"] .markdown-body ul, .markdown-body[dir="auto"]:dir(rtl) ul,
+.markdown-body[dir="rtl"] ol, [dir="rtl"] .markdown-body ol, .markdown-body[dir="auto"]:dir(rtl) ol {
+  padding-right: 1.625em;
+  padding-left: 0;
+}
+
+.light-theme .prose-invert {
+  --tw-prose-body: var(--color-slate-300) !important;
+  --tw-prose-headings: var(--body-text) !important;
+  --tw-prose-lead: var(--color-slate-400) !important;
+  --tw-prose-links: var(--prose-link) !important;
+  --tw-prose-bold: var(--body-text) !important;
+  --tw-prose-counters: var(--color-slate-400) !important;
+  --tw-prose-bullets: var(--color-slate-200) !important;
+  --tw-prose-hr: var(--color-slate-200) !important;
+  --tw-prose-quotes: var(--body-text) !important;
+  --tw-prose-quote-borders: var(--color-slate-200) !important;
+  --tw-prose-captions: var(--color-slate-400) !important;
+  --tw-prose-code: var(--body-text) !important;
+  --tw-prose-pre-code: var(--color-slate-200) !important;
+  --tw-prose-pre-bg: var(--white-05) !important;
+  --tw-prose-th-borders: var(--color-slate-200) !important;
+  --tw-prose-td-borders: var(--color-slate-200) !important;
+}

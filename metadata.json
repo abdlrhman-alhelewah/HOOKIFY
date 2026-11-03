@@ -1,0 +1,8 @@
+{
+  "name": "Hookify",
+  "description": "AI-Powered Content & Hook Generator for Social Media Creators",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

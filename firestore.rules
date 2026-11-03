@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && 
+             'email' in request.auth.token && 
+             request.auth.token.email == 'abdlrhmanmahmoud69@gmail.com';
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if isAdmin();
+    }
+    
+    match /approved_users/{email} {
+      allow get: if request.auth != null && (
+        ('email' in request.auth.token && request.auth.token.email == email) || 
+        isAdmin()
+      );
+      allow list, write: if isAdmin();
+    }
+    
+    match /access_requests/{email} {
+      allow get: if request.auth != null && (
+        ('email' in request.auth.token && request.auth.token.email == email) || 
+        isAdmin()
+      );
+      allow list: if isAdmin();
+      allow create: if request.auth != null && 
+                       'email' in request.auth.token && 
+                       request.auth.token.email == email && 
+                       request.resource != null && 
+                       'status' in request.resource.data && 
+                       request.resource.data.status == "pending";
+      allow update, delete: if isAdmin();
+    }
+    
+    match /generations/{docId} {
+      allow read, update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || isAdmin());
+    }
+    
+    match /saved_ideas/{docId} {
+      allow read, update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || isAdmin());
+    }
+    
+    match /activity_logs/{docId} {
+      allow read, update, delete: if isAdmin();
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || isAdmin());
+    }
+    
+    match /brand_profiles/{docId} {
+      allow read, update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || isAdmin());
+    }
+    
+    match /projects/{docId} {
+      allow read, update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || isAdmin());
+    }
+    
+    match /calendar_items/{docId} {
+      allow read, update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || isAdmin());
+    }
+    
+    match /swipe_items/{docId} {
+      allow read, update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || isAdmin());
+    }
+  }
+}
